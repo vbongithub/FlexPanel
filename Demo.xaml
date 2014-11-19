@@ -1,0 +1,83 @@
+<Window x:Class="FlowPanel.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:self="clr-namespace:FlowPanel"
+        Title="MainWindow"
+        Height="530"
+        Width="731">
+    <self:FlexPanel>      
+        <self:FlexPanel.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+        </self:FlexPanel.RowDefinitions>
+        <self:FlexPanel.ColumnDefinitions>
+            <ColumnDefinition Width="25" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+        </self:FlexPanel.ColumnDefinitions>
+
+        <Button Content="a"
+                Grid.Row="0"
+                Grid.RowSpan="2"
+                Grid.Column="0" />
+
+        <Button Content="b"
+                Grid.Row="0"
+                Grid.Column="1" />
+
+        <Button Content="b"
+                Grid.Row="0"
+                Grid.Column="2" />
+
+        <DataGrid Grid.Row="1"
+                  Grid.Column="1"
+                  Grid.ColumnSpan="2"
+                  ColumnWidth="*"
+                  SelectionUnit="CellOrRowHeader"
+                  CanUserDeleteRows="False"
+                  Name="testGrid">
+            <DataGrid.GroupStyle>
+                <GroupStyle>
+                    <GroupStyle.ContainerStyle>
+                        <Style TargetType="{x:Type GroupItem}">
+                            <Setter Property="Margin"
+                                    Value="0,0,0,5" />
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="{x:Type GroupItem}">
+                                        <Expander IsExpanded="True"
+                                                  BorderThickness="1,1,1,5">
+                                            <Expander.Header>
+                                                <DockPanel>
+                                                    <TextBlock FontWeight="Bold"
+                                                               Text="{Binding Path=Name}" />
+                                                    <TextBlock FontWeight="Bold"
+                                                               Text="{Binding Path=ItemCount,StringFormat={}[{0}]}" />
+                                                </DockPanel>
+                                            </Expander.Header>
+                                            <Expander.Content>
+                                                <ItemsPresenter />
+                                            </Expander.Content>
+                                        </Expander>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </GroupStyle.ContainerStyle>
+                </GroupStyle>
+                <GroupStyle>
+                    <GroupStyle.HeaderTemplate>
+                        <DataTemplate>
+                            <DockPanel>
+                                <TextBlock Text="{Binding Path=Name}"
+                                           Margin="30,0,0,0" />
+                                <TextBlock FontWeight="Bold"
+                                           Text="{Binding Path=ItemCount,StringFormat={}[{0}]}" />
+                            </DockPanel>
+                        </DataTemplate>
+                    </GroupStyle.HeaderTemplate>
+                </GroupStyle>
+            </DataGrid.GroupStyle>
+        </DataGrid>
+    </self:FlexPanel>
+</Window>
